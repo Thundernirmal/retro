@@ -163,15 +163,12 @@ body {
 .hero-last {
   display: block;
   font-family: "Syne", sans-serif;
-  font-size: clamp(2.4rem, 12cqw, 8.5rem);
+  font-size: clamp(2.1rem, 10cqw, 8rem);
   font-weight: 900;
   letter-spacing: -0.04em;
   color: var(--mauve);
   margin-top: -12px;
-  max-width: 100%;
-  white-space: normal;
-  overflow-wrap: anywhere;
-  word-break: break-word;
+  white-space: nowrap;
 }
 
 .terminal-glow {
@@ -509,8 +506,9 @@ body {
 
   .hero-last {
     margin-top: 2px;
-    font-size: clamp(1.2rem, 15cqw, 3rem);
+    font-size: clamp(1.05rem, 12cqw, 2.4rem);
     line-height: 1.08;
+    white-space: nowrap;
   }
 
   .experience-item {
