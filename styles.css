@@ -115,7 +115,7 @@ body {
   z-index: 2;
   container-type: inline-size;
   container-name: terminal;
-  overflow: hidden;
+  overflow: visible;
 }
 
 .prompt-line {
@@ -168,7 +168,10 @@ body {
   letter-spacing: -0.04em;
   color: var(--mauve);
   margin-top: -12px;
-  white-space: nowrap;
+  max-width: 100%;
+  white-space: normal;
+  overflow-wrap: anywhere;
+  word-break: break-word;
 }
 
 .terminal-glow {
