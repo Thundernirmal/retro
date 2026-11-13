@@ -322,19 +322,8 @@ body {
   color: var(--text);
 }
 
-.experience-company {
-  font-size: 16px;
-  color: var(--teal);
-}
-
-.experience-item:hover .experience-role,
-.experience-item:hover .experience-company {
+.experience-item:hover .experience-role {
   color: var(--mauve);
-}
-
-.at {
-  color: var(--overlay1);
-  margin-right: 4px;
 }
 
 .playground-intro {
