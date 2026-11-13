@@ -1,6 +1,6 @@
 (function () {
   const BIO_TEXT =
-    "Associate System Engineer at Goldman Sachs | IIT Jodhpur";
+    "Systems engineer, Linux enjoyer and part-time computer archaeologist";
   const bioTarget = document.getElementById("bio-text");
   const cursor = document.getElementById("bio-cursor");
 
