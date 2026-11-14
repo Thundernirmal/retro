@@ -30,6 +30,7 @@
   --card-bg-soft: rgba(49, 50, 68, 0.12);
   --card-bg-hover: rgba(69, 71, 90, 0.32);
   --card-ring: rgba(69, 71, 90, 0.4);
+  --meta: var(--overlay0);
 
   --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
   color-scheme: dark;
@@ -69,6 +70,8 @@
   --card-bg-soft: rgba(204, 208, 218, 0.22);
   --card-bg-hover: rgba(188, 192, 204, 0.42);
   --card-ring: rgba(172, 176, 190, 0.35);
+  /* Small labels on cards: Latte's overlay0 is only ~2:1 here, this stays above 4.5:1 even on hover. */
+  --meta: #585b73;
 }
 
 * {
@@ -424,7 +427,7 @@ html.theme-switching *::after {
 }
 
 .experience-period {
-  color: var(--overlay0);
+  color: var(--meta);
   font-size: 12px;
   width: 120px;
 }
@@ -512,7 +515,7 @@ html.theme-switching *::after {
 }
 
 .playground-index {
-  color: var(--overlay0);
+  color: var(--meta);
   font-size: 0.7rem;
   letter-spacing: 0.04em;
   white-space: nowrap;
