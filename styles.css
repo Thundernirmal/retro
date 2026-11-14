@@ -18,6 +18,57 @@
   --green: #a6e3a1;
   --teal: #94e2d5;
   --blue: #89b4fa;
+
+  --terminal-shadow: rgba(11, 11, 19, 0.6);
+  --scanline: rgba(205, 214, 244, 0.035);
+  --body-ring: rgba(203, 166, 247, 0.18);
+  --prompt-glow: rgba(137, 180, 250, 0.35);
+  --hero-glow-near: rgba(203, 166, 247, 0.35);
+  --hero-glow-far: rgba(203, 166, 247, 0.15);
+  --title-glow: rgba(245, 194, 231, 0.2);
+  --card-bg: rgba(49, 50, 68, 0.18);
+  --card-bg-soft: rgba(49, 50, 68, 0.12);
+  --card-bg-hover: rgba(69, 71, 90, 0.32);
+  --card-ring: rgba(69, 71, 90, 0.4);
+
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  color-scheme: dark;
+}
+
+/* Catppuccin Latte, the light sibling of the Mocha palette above (same as nirmalkatariya.com). */
+:root[data-theme="latte"] {
+  color-scheme: light;
+  --crust: #dce0e8;
+  --mantle: #e6e9ef;
+  --base: #eff1f5;
+  --surface0: #ccd0da;
+  --surface1: #bcc0cc;
+  --overlay0: #9ca0b0;
+  --overlay1: #8c8fa1;
+  --overlay2: #7c7f93;
+  --subtext0: #6c6f85;
+  --subtext1: #5c5f77;
+  --text: #4c4f69;
+  --pink: #ea76cb;
+  --mauve: #8839ef;
+  --red: #d20f39;
+  --peach: #fe640b;
+  --yellow: #df8e1d;
+  --green: #40a02b;
+  --teal: #179299;
+  --blue: #1e66f5;
+
+  --terminal-shadow: rgba(76, 79, 105, 0.28);
+  --scanline: rgba(76, 79, 105, 0.045);
+  --body-ring: rgba(136, 57, 239, 0.14);
+  --prompt-glow: rgba(30, 102, 245, 0.14);
+  --hero-glow-near: rgba(136, 57, 239, 0.16);
+  --hero-glow-far: rgba(136, 57, 239, 0.06);
+  --title-glow: rgba(234, 118, 203, 0.12);
+  --card-bg: rgba(204, 208, 218, 0.3);
+  --card-bg-soft: rgba(204, 208, 218, 0.22);
+  --card-bg-hover: rgba(188, 192, 204, 0.42);
+  --card-ring: rgba(172, 176, 190, 0.35);
 }
 
 * {
@@ -50,7 +101,7 @@ body {
   background: var(--mantle);
   border: 1px solid var(--surface1);
   border-radius: 14px;
-  box-shadow: calc(var(--shadow-x, 0px)) calc(30px + var(--shadow-y, 0px)) 70px rgba(11, 11, 19, 0.6);
+  box-shadow: calc(var(--shadow-x, 0px)) calc(30px + var(--shadow-y, 0px)) 70px var(--terminal-shadow);
   overflow: hidden;
   position: relative;
   transition: box-shadow 0.2s ease;
@@ -61,8 +112,8 @@ body {
   position: absolute;
   inset: 0;
   background: repeating-linear-gradient(to bottom,
-      rgba(205, 214, 244, 0.035) 0,
-      rgba(205, 214, 244, 0.035) 1px,
+      var(--scanline) 0,
+      var(--scanline) 1px,
       transparent 1px,
       transparent 4px);
   opacity: 0.35;
@@ -105,12 +156,74 @@ body {
   margin-left: 10px;
 }
 
+.theme-toggle {
+  margin-left: auto;
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  margin-block: -6px;
+  margin-right: -6px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--subtext0);
+  cursor: pointer;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.theme-toggle:hover,
+.theme-toggle:focus-visible {
+  color: var(--mauve);
+}
+
+.theme-toggle:focus-visible {
+  outline: 1px solid var(--mauve);
+  outline-offset: 2px;
+}
+
+.theme-toggle:active {
+  transform: scale(0.88);
+}
+
+.theme-toggle svg {
+  grid-area: 1 / 1;
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: transform 0.5s var(--ease-spring), opacity 0.25s ease;
+}
+
+:root[data-theme="latte"] .theme-toggle .moon,
+:root:not([data-theme="latte"]) .theme-toggle .sun {
+  opacity: 0;
+  transform: rotate(-90deg) scale(0.5);
+}
+
+/* The theme swap is a circular reveal from the toggle (driven from script.js). */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Hold colour transitions off during the swap so cards don't fade separately under the reveal. */
+html.theme-switching *,
+html.theme-switching *::before,
+html.theme-switching *::after {
+  transition-property: transform, opacity !important;
+}
+
 .terminal-body {
   padding: 36px 48px 40px;
   display: flex;
   flex-direction: column;
   gap: 48px;
-  box-shadow: inset 0 0 0 1px rgba(203, 166, 247, 0.18);
+  box-shadow: inset 0 0 0 1px var(--body-ring);
   position: relative;
   z-index: 2;
   container-type: inline-size;
@@ -140,7 +253,7 @@ body {
 
 .prompt-text {
   color: var(--text);
-  text-shadow: 0 0 10px rgba(137, 180, 250, 0.35);
+  text-shadow: 0 0 10px var(--prompt-glow);
 }
 
 .hero-title {
@@ -172,7 +285,7 @@ body {
 }
 
 .terminal-glow {
-  text-shadow: 0 0 30px rgba(203, 166, 247, 0.35), 0 0 60px rgba(203, 166, 247, 0.15);
+  text-shadow: 0 0 30px var(--hero-glow-near), 0 0 60px var(--hero-glow-far);
   animation: hero-flicker 4.8s steps(1, end) infinite;
 }
 
@@ -204,14 +317,14 @@ body {
   gap: 10px;
   padding: 16px;
   border-radius: 0;
-  background: rgba(49, 50, 68, 0.18);
+  background: var(--card-bg);
   border: 1px solid var(--surface1);
-  box-shadow: inset 0 0 0 1px rgba(69, 71, 90, 0.4);
+  box-shadow: inset 0 0 0 1px var(--card-ring);
   transition: border-color 0.2s ease, color 0.2s ease, background 0.2s ease;
 }
 
 .about-item:hover {
-  background: rgba(69, 71, 90, 0.32);
+  background: var(--card-bg-hover);
   border-color: var(--mauve);
   color: var(--mauve);
 }
@@ -266,7 +379,7 @@ body {
   letter-spacing: -0.04em;
   font-weight: 900;
   line-height: 0.9;
-  text-shadow: 0 0 18px rgba(245, 194, 231, 0.2);
+  text-shadow: 0 0 18px var(--title-glow);
 }
 
 .section-peach {
@@ -298,14 +411,14 @@ body {
   gap: 12px 18px;
   padding: 16px 18px;
   border-radius: 0;
-  background: rgba(49, 50, 68, 0.12);
+  background: var(--card-bg-soft);
   border: 1px solid var(--surface1);
-  box-shadow: inset 0 0 0 1px rgba(69, 71, 90, 0.4);
+  box-shadow: inset 0 0 0 1px var(--card-ring);
   transition: border-color 0.2s ease, background 0.2s ease;
 }
 
 .experience-item:hover {
-  background: rgba(69, 71, 90, 0.32);
+  background: var(--card-bg-hover);
   border-color: var(--mauve);
   color: var(--mauve);
 }
@@ -348,9 +461,9 @@ body {
   overflow: hidden;
   color: var(--text);
   text-decoration: none;
-  background: rgba(49, 50, 68, 0.18);
+  background: var(--card-bg);
   border: 1px solid var(--surface1);
-  box-shadow: inset 0 0 0 1px rgba(69, 71, 90, 0.4);
+  box-shadow: inset 0 0 0 1px var(--card-ring);
   transition: background 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
 }
 
@@ -379,7 +492,7 @@ body {
 
 .playground-card:hover,
 .playground-card:focus-visible {
-  background: rgba(69, 71, 90, 0.32);
+  background: var(--card-bg-hover);
   border-color: var(--card-accent);
   transform: translateY(-2px);
 }
@@ -460,9 +573,9 @@ body {
   gap: 10px;
   padding: 10px 16px;
   border-radius: 0;
-  background: rgba(49, 50, 68, 0.18);
+  background: var(--card-bg);
   border: 1px solid var(--surface1);
-  box-shadow: inset 0 0 0 1px rgba(69, 71, 90, 0.4);
+  box-shadow: inset 0 0 0 1px var(--card-ring);
   color: var(--text);
   text-decoration: none;
   transition: border-color 0.2s ease, color 0.2s ease;
