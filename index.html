@@ -1,11 +1,25 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" data-theme="mocha">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nirmal Katariya</title>
   <meta name="description" content="Nirmal Katariya">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#eff1f5" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#1e1e2e" media="(prefers-color-scheme: dark)">
+  <script>
+    // Set the theme before first paint: a saved choice wins, otherwise follow the system.
+    (function () {
+      var stored = null;
+      try {
+        stored = localStorage.getItem("theme");
+      } catch (e) { }
+      var system = matchMedia("(prefers-color-scheme: dark)").matches ? "mocha" : "latte";
+      document.documentElement.dataset.theme = stored === "latte" || stored === "mocha" ? stored : system;
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link
@@ -25,6 +39,15 @@
         <span class="dot dot-yellow"></span>
         <span class="dot dot-green"></span>
         <span class="terminal-path">~/portfolio</span>
+        <button type="button" class="theme-toggle" id="theme-toggle" aria-label="Dark theme" aria-pressed="true">
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="sun">
+            <circle cx="12" cy="12" r="4" />
+            <path d="M12 2v2M12 20v2m-7.07-17.07 1.41 1.41m11.32 11.32 1.41 1.41M2 12h2m16 0h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
+          </svg>
+          <svg viewBox="0 0 24 24" aria-hidden="true" class="moon">
+            <path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" />
+          </svg>
+        </button>
       </div>
 
       <div class="terminal-body">
